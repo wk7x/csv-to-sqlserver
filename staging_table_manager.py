@@ -104,7 +104,7 @@ class StagingTableManager:
                     time.sleep(0.2)
 
         # Get user input for row terminator with default value
-        row_terminator = input("Enter row terminator (blank will use'0x0a': ") or '0x0a'
+        row_terminator = input("Enter row terminator (blank will use'0x0a'): ") or '0x0a'
 
         try:
             # Process each CSV file
@@ -143,12 +143,14 @@ class StagingTableManager:
                 progress_thread.join()
 
         except KeyboardInterrupt:
-            print("\nProcess interrupted by keyboard input.")
             inserting_in_progress = False
             progress_thread.join()
+            print("\nProcess interrupted by keyboard input.")
             self.db.conn.rollback()
             sys.exit(1)
         except pyodbc.Error as error:
+            inserting_in_progress = False
+            progress_thread.join()
             print(f"Fail on insert: {error}")
             self.db.conn.rollback()
             return 0
