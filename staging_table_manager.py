@@ -103,6 +103,9 @@ class StagingTableManager:
                     sys.stdout.flush()
                     time.sleep(0.2)
 
+        # Get user input for row terminator with default value
+        row_terminator = input("Enter row terminator (blank will use'0x0a': ") or '0x0a'
+
         try:
             # Process each CSV file
             for csv_file in csv_files:
@@ -126,7 +129,7 @@ class StagingTableManager:
                     FROM '{file_path}'
                     WITH (
                         FIELDTERMINATOR = ',', 
-                        ROWTERMINATOR = '0x0a',
+                        ROWTERMINATOR = '{row_terminator}',
                         FIRSTROW = 2
                     );
                 """)
