@@ -19,11 +19,6 @@ dist/
 build/
 *.egg-info/
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-
 # Local development
 *.log
 .DS_Store
